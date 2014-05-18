@@ -110,3 +110,18 @@ def transformPrefs(prefs):
       result.setdefault(movie, {})
       result[movie][person] = prefs[person][movie]
   return result
+
+# Compute items similar to other items
+def calculateSimilarItems(prefs, n=10):
+  # Dictionary of items showing which other items they are similar to
+  result = {}
+
+  # Get an item centric dictionary
+  itemPrefs = transformPrefs(prefs)
+  c = 0
+  for item in itemPrefs:
+    # Status update
+    c += 1
+    if c%100 == 0: print "%d / %d" % (c, len(itemPrefs))
+    result[item] = topMatches(itemPrefs, item, n=n, similarity=sim_pearson)
+  return result

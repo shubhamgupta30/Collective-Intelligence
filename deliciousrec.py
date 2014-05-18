@@ -29,8 +29,7 @@ def fillItems(users):
       users[user][post["url"]] = 1.0
       all_posts[post["url"]] = 1
 
-  for ratings in top_users.values():
+  for ratings in users.values():
     for post in all_posts:
       if post not in ratings:
         ratings[post] = 0.0
-
