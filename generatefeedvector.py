@@ -45,7 +45,8 @@ def getWordCounts(rss_url):
 
 apcount = {}
 wordcounts = {}
-for feed_url in file('feedlist.txt'):
+feedlist = file('feedlist.txt')
+for feed_url in feedlist:
   print "Reading " + feed_url
   try:
     title, wc = getWordCounts(feed_url)
@@ -57,9 +58,11 @@ for feed_url in file('feedlist.txt'):
     if count >1:
       apcount[word]+=1
 
+print 'Read ' + len(wordcounts) + ' blogs'
+
 wordlist = []
 for w,bc in apcount.items():
-  frac = float(bc)/len(feedlist)
+  frac = float(bc)/len(wordcounts)
   if frac>0.1 and frac<0.5: wordlist.append(w)
 
 out=file('blogdata.txt','w')
